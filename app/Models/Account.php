@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Account extends Authenticatable
 {
     use HasFactory, Notifiable;
+
+    protected $table = "account";
+    public $timestamps = false;
+
+    protected $primaryKey = 'username';
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +23,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
+        'name',
     ];
 
     /**
@@ -29,19 +35,11 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'role',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+
+    protected $attributes = [
+        'role' => "account",
+    ];
 }
